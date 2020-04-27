@@ -234,9 +234,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentBlockType: {fileID: 3852982290987448342, guid: 574a8d83b34c376498d1ac919734c87a,
     type: 3}
-  amp: 10
+  chunkSize: 10
+  worldSize: 10
   freq: 10
-  worldHeight: 5
+  amp: 10
+  worldHeight: 10
+  h: 0
+  _Keys:
+  - grass
+  - dirt
+  _Values:
+  - {fileID: 3852982290987448342, guid: 574a8d83b34c376498d1ac919734c87a, type: 3}
+  - {fileID: 2448805294942892869, guid: d3366551bdc2d4d46a30478e15a9f7bc, type: 3}
 --- !u!4 &1091084923
 Transform:
   m_ObjectHideFlags: 0
