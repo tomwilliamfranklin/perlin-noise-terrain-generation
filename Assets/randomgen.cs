@@ -47,8 +47,13 @@ public class randomgen : MonoBehaviour
                             newBlock.transform.parent = transform;
                             newBlock.transform.position = new Vector3(x, i, z);
                             break;
-                        default:
+                        case var expression when i > worldHeight - 1:
                             newBlock = GameObject.Instantiate(_Dictionary["dirt"]);
+                            newBlock.transform.parent = transform;
+                            newBlock.transform.position = new Vector3(x, i, z);
+                            break;
+                        default:
+                            newBlock = GameObject.Instantiate(_Dictionary["stone"]);
                             newBlock.transform.parent = transform;
                             newBlock.transform.position = new Vector3(x, i, z);
                             break;
