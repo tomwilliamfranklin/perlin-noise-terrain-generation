@@ -64,7 +64,6 @@ public class randomgen : MonoBehaviour
 
     public void CombineMeshes()
     {
-        List<List<CombinedGameObject>> combineLists = new List<List<CombinedGameObject>>();
 
         Dictionary<string, List<MeshFilter>> categorisedMeshFilters = new Dictionary<string, List<MeshFilter>>();
 
@@ -76,10 +75,17 @@ public class randomgen : MonoBehaviour
             categorisedMeshFilters[child.tag].Add(child.GetComponent<MeshFilter>());
         }
 
-        foreach (List<MeshFilter> meshFilters in categorisedMeshFilters.Values)
+        foreach (KeyValuePair<string, List<MeshFilter>> categoryMeshFilter in categorisedMeshFilters)
         {
+            var meshFilters = categoryMeshFilter.Value;
+            var category = categoryMeshFilter.Key;
+
             try
             {
+                Debug.Log("Object category " + category);
+
+                List<List<CombinedGameObject>> combineLists = new List<List<CombinedGameObject>>();
+
                 combineLists.Add(new List<CombinedGameObject>());
 
                 CombinedGameObject[] combine = new CombinedGameObject[meshFilters.Count];
@@ -107,31 +113,27 @@ public class randomgen : MonoBehaviour
                     i++;
                 }
 
+                Transform chunk = new GameObject("chunk-parent").transform;
+                chunk.transform.parent = transform;
+                foreach (List<CombinedGameObject> list in combineLists)
+                {
+                    GameObject block = new GameObject("chunk");
+                    block.transform.parent = chunk;
+                    MeshFilter mf = block.AddComponent<MeshFilter>();
+                    MeshRenderer mr = block.AddComponent<MeshRenderer>();
+                    mr.material = _Dictionary[category.ToLower()].GetComponent<MeshRenderer>().sharedMaterial;
+                    mf.mesh.CombineMeshes(list.Select(x => x.combinedInstance).ToArray());
+
+                    list.ForEach(obj =>
+                    {
+                        obj.gameObject.transform.parent = block.transform;
+                    });
+                }
+
             } catch (Exception e )
             {
                 Debug.Log("Error " + e);
             }
         }
-
-
-  
-
-
-            Transform chunk = new GameObject("chunk-parent").transform;
-            chunk.transform.parent = transform;
-            foreach (List<CombinedGameObject> list in combineLists)
-            {
-                GameObject block = new GameObject("chunk");
-                block.transform.parent = chunk;
-                MeshFilter mf = block.AddComponent<MeshFilter>();
-                MeshRenderer mr = block.AddComponent<MeshRenderer>();
-                mr.material = tempMaterial;
-                mf.mesh.CombineMeshes(list.Select(x => x.combinedInstance).ToArray());
-
-                list.ForEach(obj =>
-                {
-                    obj.gameObject.transform.parent = block.transform;
-                });
-            }
     }
 }
