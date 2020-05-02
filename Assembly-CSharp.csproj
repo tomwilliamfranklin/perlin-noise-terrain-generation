@@ -59,6 +59,8 @@
      <Compile Include="Assets\map.cs" />
      <Compile Include="Assets\Model\block.cs" />
      <Compile Include="Assets\Model\CombinedGameObject.cs" />
+     <Compile Include="Assets\MouseLook.cs" />
+     <Compile Include="Assets\PlayerMovement.cs" />
      <Compile Include="Assets\randomgen.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>C:/Users/tomfr/Documents/GitHub/MyFirstGameJam/MapRendering/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
